@@ -2,7 +2,7 @@ import java.util.Scanner;
 
 public class Main {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
         Scanner scanner = new Scanner(System.in);
         while (true) {
             String input = scanner.nextLine();
@@ -14,11 +14,11 @@ public class Main {
         }
     }
 
-    public static String calc(String input) {
+    public static String calc(String input) throws Exception {
         String[] values = input.split(" ");
 
         if (values.length != 3) {
-            return "Ошибка ввода. Калькулятор может обрабатывать только два числа!";
+            throw new Exception("Ошибка ввода. Калькулятор может обрабатывать только два числа!");
         }
 
         String operator = values[1];
@@ -40,19 +40,16 @@ public class Main {
             isNumberRoman = false;
         }
         else {
-            System.out.println("Ошибка ввода. Необходимо вводить один формат чисел!");
-            System.exit(0);
+            throw new Exception ("Ошибка ввода. Необходимо вводить один формат чисел!");
         }
 
         if (firstNumber > 10 || secondNumber > 10) {
-            System.out.println("Ошибка ввода. Калькулятор может обрабатывать только два числа до 10!");
-            System.exit(0);
+            throw new Exception ("Ошибка ввода. Калькулятор может обрабатывать только два числа до 10!");
         }
         int resultAfterMathOperation = mathOperation(firstNumber, secondNumber, operator);
         if (isNumberRoman) {
             if (resultAfterMathOperation <= 0) {
-                System.out.println("Ошибка ввода. Ответ не может быть меньше нуля!");
-                System.exit(0);
+                throw new Exception ("Ошибка ввода. Ответ не может быть меньше нуля!");
             }
             result = Roman.convertToRoman(resultAfterMathOperation);
         } else {
@@ -61,7 +58,7 @@ public class Main {
         return result;
     }
 
-    static int mathOperation(int a, int b, String operation) {
+    static int mathOperation(int a, int b, String operation) throws Exception{
         switch (operation){
             case("+"):
                 return a + b;
@@ -75,14 +72,11 @@ public class Main {
                 }
                 else
                 {
-                    System.out.println("Ошибка ввода. Делить на ноль невозможно!");
+                    throw new Exception("Ошибка ввода. Делить на ноль невозможно!");
                 }
-                break;
             default:
-                System.out.println("Ошибка ввода. Несуществующая операция!");
-                System.exit(0);
+                throw new Exception("Ошибка ввода. Несуществующая операция!");
         }
-        return 0;
     }
 }
 
